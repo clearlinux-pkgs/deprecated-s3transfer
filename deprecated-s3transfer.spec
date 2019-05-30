@@ -4,7 +4,7 @@
 #
 Name     : deprecated-s3transfer
 Version  : 0.2.0
-Release  : 25
+Release  : 26
 URL      : https://files.pythonhosted.org/packages/43/22/37b9aaf3969628a25b3b921612139ebc5b8dc26cabb9873c356e1ad2ce2e/s3transfer-0.2.0.tar.gz
 Source0  : https://files.pythonhosted.org/packages/43/22/37b9aaf3969628a25b3b921612139ebc5b8dc26cabb9873c356e1ad2ce2e/s3transfer-0.2.0.tar.gz
 Summary  : An Amazon S3 Transfer Manager
@@ -13,14 +13,17 @@ License  : Apache-2.0
 Requires: deprecated-s3transfer-license = %{version}-%{release}
 Requires: deprecated-s3transfer-python = %{version}-%{release}
 Requires: botocore
-Requires: futures
+Requires: deprecated-futures-legacypython
+BuildRequires : botocore
 BuildRequires : buildreq-distutils
 BuildRequires : buildreq-distutils3
+BuildRequires : deprecated-futures-legacypython
 
 %description
-=====================================================
 s3transfer - An Amazon S3 Transfer Manager for Python
-=====================================================
+        =====================================================
+        
+        S3transfer is a Python library for managing Amazon S3 transfers.
 
 %package legacypython
 Summary: legacypython components for the deprecated-s3transfer package.
@@ -55,7 +58,12 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1554327977
+export SOURCE_DATE_EPOCH=1559192103
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
 export MAKEFLAGS=%{?_smp_mflags}
 python2 setup.py build -b py2
 
